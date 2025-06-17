@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyWatch Pro</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="weather.png"> <!-- Favicon -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-wrap">
+    <header>
+      <div class="logo-container">
+        <div class="logo-icon">
+          <i class="fas fa-satellite"></i>
+        </div>
+        <h1 class="app-title">SkyWatch <span class="pro-badge">PRO</span></h1>
+        <div class="subtitle">Advanced Weather Intelligence</div>
+      </div>
+      <div class="search-container">
+        <div class="search-wrapper">
+          <input type="text" autocomplete="off" class="search-box" placeholder="Enter city name..." />
+          <div class="search-icon">
+            <i class="fas fa-location-dot"></i>
+          </div>
+        </div>
+        <select class="country-select">
+          <option value="">Global</option>
+          <option value="US">🇺🇸 United States</option>
+          <option value="GB">🇬🇧 United Kingdom</option>
+          <option value="IN">🇮🇳 India</option>
+          <option value="CA">🇨🇦 Canada</option>
+          <option value="AU">🇦🇺 Australia</option>
+          <option value="DE">🇩🇪 Germany</option>
+          <option value="FR">🇫🇷 France</option>
+          <option value="JP">🇯🇵 Japan</option>
+          <option value="BR">🇧🇷 Brazil</option>
+          <option value="MX">🇲🇽 Mexico</option>
+          <option value="IT">🇮🇹 Italy</option>
+          <option value="ES">🇪🇸 Spain</option>
+          <option value="RU">🇷🇺 Russia</option>
+          <option value="CN">🇨🇳 China</option>
+          <option value="KR">🇰🇷 South Korea</option>
+          <option value="NL">🇳🇱 Netherlands</option>
+          <option value="SE">🇸🇪 Sweden</option>
+          <option value="NO">🇳🇴 Norway</option>
+          <option value="DK">🇩🇰 Denmark</option>
+        </select>
+        <button class="search-btn">
+          <i class="fas fa-radar"></i>
+        </button>
+      </div>
+    </header>
+    <main>
+      <div class="weather-box">
+        <div class="status-indicator">
+          <div class="status-dot"></div>
+          <span class="status-text">LIVE</span>
+        </div>
+        <section class="location">
+          <div class="city"><i class="fas fa-map-pin"></i> New York, US</div>
+          <div class="date">Wednesday 22 July 2020</div>
+          <div class="time-zone">UTC-5</div>
+        </section>
+        <div class="current">
+          <div class="temp-container">
+            <div class="temp"><i class="fas fa-thermometer-half"></i> 15<span>°C</span></div>
+            <div class="feels-like">Feels like 13°C</div>
+          </div>
+          <div class="weather">
+            <i class="fas fa-cloud-sun"></i> 
+            <span class="weather-text">Sunny</span>
+            <div class="weather-code">SKY-001</div>
+          </div>
+          <div class="hi-low">
+            <div class="temp-range">
+              <span class="min"><i class="fas fa-arrow-down"></i> 13°C</span>
+              <span class="separator">|</span>
+              <span class="max"><i class="fas fa-arrow-up"></i> 16°C</span>
+            </div>
+          </div>
+        </div>
+        <div class="weather-details">
+          <div class="detail-item">
+            <div class="detail-icon">
+              <i class="fas fa-tint"></i>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Humidity</span>
+              <span class="detail-value" id="humidity">--%</span>
+            </div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-icon">
+              <i class="fas fa-wind"></i>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Wind Speed</span>
+              <span class="detail-value" id="wind">-- km/h</span>
+            </div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-icon">
+              <i class="fas fa-eye"></i>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Visibility</span>
+              <span class="detail-value" id="visibility">-- km</span>
+            </div>
+          </div>
+          <div class="detail-item">
+            <div class="detail-icon">
+              <i class="fas fa-compress-alt"></i>
+            </div>
+            <div class="detail-content">
+              <span class="detail-label">Pressure</span>
+              <span class="detail-value" id="pressure">-- hPa</span>
+            </div>
+          </div>
+        </div>
+        <div class="footer-info">
+          <div class="data-source">
+            <i class="fas fa-satellite-dish"></i>
+            Powered by SkyWatch API
+          </div>
+          <div class="update-time">
+            Last updated: <span id="update-time">--:--</span>
+          </div>
+        </div>
+      </div>
+      <div class="loading" id="loading" style="display: none;">
+        <div class="loading-spinner">
+          <i class="fas fa-satellite fa-spin"></i>
+        </div>
+        <p>Scanning weather data...</p>
+        <div class="loading-progress">
+          <div class="progress-bar"></div>
+        </div>
+      </div>
+      <div class="error" id="error" style="display: none;">
+        <div class="error-icon">
+          <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        <p id="error-message">City not found</p>
+        <div class="error-suggestions">
+          <span>Try checking the spelling or select a country</span>
+        </div>
+      </div>
+    </main>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>

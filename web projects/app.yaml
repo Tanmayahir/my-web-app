@@ -1,0 +1,38 @@
+runtime: python39
+
+handlers:
+  # Serve index.html for root path
+  - url: /
+    static_files: index.html
+    upload: index.html
+    
+  # Serve all static files (CSS, JS, images)
+  - url: /(.*\.(css|js|gif|png|jpg|jpeg|ico|svg|woff|woff2|ttf|eot))
+    static_files: \1
+    upload: .*\.(css|js|gif|png|jpg|jpeg|ico|svg|woff|woff2|ttf|eot)
+    
+  # Serve all other files
+  - url: /(.*)
+    static_files: \1
+    upload: .*
+    
+  # Fallback to index.html for SPA routing
+  - url: /.*
+    static_files: index.html
+    upload: index.html
+
+# Environment variables
+env_variables:
+  GOOGLE_CLOUD_PROJECT: "skywatch-pro-weather"
+
+# Automatic scaling
+automatic_scaling:
+  target_cpu_utilization: 0.6
+  min_instances: 0
+  max_instances: 10
+
+# Security headers
+secure: always
+
+# Compression
+gzip: true 
